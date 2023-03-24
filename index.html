@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Operating systems project</title>
+	<script type="text/javascript" src="schedule.js"> </script>
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+	<style type="text/css">
+		@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap');
+				body{
+					font-family: 'Montserrat', sans-serif;
+				}
+
+				.restable td,th{
+					padding: 3%;
+
+				}
+
+				.restable {
+					width: 20vw;
+					font-size: 14px;
+				}
+
+				#subbt{
+				  border: 0.5px solid #DFE135;
+				  background-color: #DFE135;
+				  color: black;
+				  padding: 2%;
+				  width: 20vw;
+
+				  /*border-radius: 10px;*/
+				  transition-duration: 0.3s;
+				}
+
+				#subbt:hover{
+				  border: 1px solid #DFE135;
+				  background-color: white;
+				  color: black;
+				  padding: 2%;
+				  width: 25vw;
+				}
+
+
+
+				.blackbtn{
+				  background: black;
+				  color: white; 
+				  padding: 20px; 
+				  padding-left: 50px; 
+				  padding-right: 50px;
+				  text-decoration: none;
+				  border: 1px solid black;
+				}
+
+				.blackbtn:hover{
+				  background: white;
+				  color: black; 
+				  padding: 20px; 
+				  padding-left: 50px; 
+				  padding-right: 50px;
+				  transition-duration: 0.3s;
+				  text-decoration: none;
+				  border: 1px solid black;
+				}
+
+				
+	</style>
+</head>
+<body>
+<center>
+
+<br><br>
+<h1> Modern Operating Systems Programming Assignment </h1>
+<br><br>
+
+Choose number of processes
+	<select id="num" onchange="enterdata()">
+  		<option value="1">1</option>
+  		<option value="2">2</option>
+  		<option value="3">3</option>
+ 		<option value="4">4</option>
+ 		<option value="5">5</option>
+ 		<option value="6">6</option>
+ 		<option value="7">7</option>
+ 		<option value="8">8</option>
+	</select>
+
+	<br><br>
+
+	Enter Time Quantum Value : &nbsp;<input type="text" id="TQinput"  value="4" placeholder="Time quantum" >&nbsp;
+	
+<br><br><br><br>
+
+
+
+	Enter for process P1  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="1"  placeholder="Arrival time" value="0" required>&nbsp;
+	<input type="text" id="2" placeholder="Burst time" value="0" required>&nbsp;
+	<br><br>
+	Enter for process P2  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="3"  placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="4" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P3  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="5"  placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="6" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P4  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="7"  placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="8" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P5  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="9"  placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="10" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P6  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="11" placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="12" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P7  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="13" placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="14" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+	Enter for process P8  &nbsp;&nbsp;&nbsp; : &nbsp;
+	<input type="text" id="15" placeholder="Arrival time" disabled="true">&nbsp;
+	<input type="text" id="16" placeholder="Burst time" disabled="true">&nbsp;
+	<br><br>
+
+	
+	<script type="text/javascript">
+		
+		function enterdata()
+		{	
+			var x=  document.getElementById("num").value;
+			
+			console.log("here x: "+x);
+			for(var i=1;i<=(x*2);i++)
+			{	console.log("enabled :"+i);
+				document.getElementById(i).disabled = false;
+				document.getElementById(i).value = 0;
+			}
+			x=(x*2)+1;
+			while(x<=16)
+			{
+			document.getElementById(x).value = "";
+			document.getElementById(x).disabled = true;
+			x++;
+			}
+		}
+
+
+	</script>
+	<br>
+	<button onclick="computeall()" class="blackbtn" type="submit"> Compute Result </button>
+
+	<br><br>
+	<table id="avgtable" border=1 class="restable">
+		
+	</table>
+
+<br><br>
+	<button onclick="calculate(1)" id="subbt">Round Robin</button>
+	<button onclick="calculate(2)" id="subbt">Shortest request next</button>
+	<button onclick="calculate(3)" id="subbt">Highest response ratio next</button>
+	<button onclick="calculate(4)" id="subbt">Least completed next</button>
+
+
+
+	<BR><BR>
+	<h2 id="pname"></h2>
+
+	<br>GANTT CHART <br><br>
+
+	<table  border=1 >
+		
+		<tr id="ganttchart">
+			<!-- The gant chart for the selected algorithm is displayed here -->
+		</tr>
+
+	</table>
+
+
+	<br><br>
+
+
+
+
+	RESULT
+	<br><br>
+	
+	<table id="tab" border=1 class="restable">
+		
+			<!-- RESULT Table -->
+	</table>
+	
+	<p id="result"> 
+			<!-- Avg TAT and Avg WT are displayed here-->
+	</p>
+
+
+
+	<script type="text/javascript">
+		
+
+		function computeall()
+		{
+			//compute for all algorithms
+			calculate(2);
+			calculate(3);
+			calculate(4);
+			calculate(1);	
+		}
+
+
+		function calculate(op){
+
+
+			var ll = new LinkedList();
+
+			n=  document.getElementById("num").value;
+
+			for (var i = 0; i<n; i++) {
+				for (var j = 0; j<n; j++) {
+								arr[i][j]=0;
+				}								
+			}
+
+			var k=1;
+			for (var i = 0; i<n; i++) {
+				for (var j = 0; j<2; j++) {
+							arr[i][j]=parseInt(document.getElementById(k).value);
+							k++;
+				}					
+				if(k>n*2)
+					break;
+			}
+
+
+			ll.insertbeg();
+
+			switch(op) {
+				  case 1: 	ll.roundrobin();
+				    		break;
+				  case 2: 	ll.SRN();
+				    		break;
+				  case 3: 	ll.HRN();
+				    		break;
+				  case 4: 	ll.LCN();
+				    		break;
+				 
+				}
+
+		
+
+		}
+
+	</script>
+
+
+	<br><br>
+
+	<button onclick="toggleshow()" id="togglebtn"  class="blackbtn"> Show steps </button>
+
+
+	<br><br>
+
+	<hr><hr>
+
+	<section id="steps" hidden="true">
+		
+		<!-- The algorithm steps are displayed here -->
+
+	</section>
+
+	
+
+	<script type="text/javascript">
+		function toggleshow() {
+			if(document.getElementById("steps").hidden==true)
+				{document.getElementById("steps").hidden=false;
+				document.getElementById("togglebtn").innerHTML="Hide steps";
+				
+				}
+			else
+				{document.getElementById("steps").hidden=true;
+				document.getElementById("togglebtn").innerHTML="Show steps";
+				
+				}
+		}
+	</script>
+	
+</center>
+</body>
+</html>
